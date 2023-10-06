@@ -63,7 +63,8 @@ In this project, I built a Weather App using React, TypeScript, and Tailwind CSS
 ## Roadmap
 
 - [x] Project Setup
-
+- [x] Create Components Folder
+- [x] Create Input Component & Recent Button Component
 
 <p align="center">(Still working on it...)</p>
 
