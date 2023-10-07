@@ -1,5 +1,8 @@
+import ForeCast from '@/components/ForeCast';
 import InputBox from '@/components/InputBox';
 import RecentButtons from '@/components/RecentButtons';
+import TempDetails from '@/components/TempDetails';
+import TimeLocation from '@/components/TimeLocation';
 import React from 'react';
 
 const Home = () => {
@@ -10,6 +13,9 @@ const Home = () => {
     >
       <RecentButtons />
       <InputBox />
+      <TimeLocation />
+      <TempDetails />
+      <ForeCast />
     </div>
   );
 };
