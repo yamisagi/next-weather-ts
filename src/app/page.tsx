@@ -4,8 +4,14 @@ import RecentButtons from '@/components/RecentButtons';
 import TempDetails from '@/components/TempDetails';
 import TimeLocation from '@/components/TimeLocation';
 import React from 'react';
+import { getFormattedData } from '@/utils/api';
 
 const Home = () => {
+  const fetchWeatherData = async () => {
+    getFormattedData({ q: 'ankara' });
+  };
+  // fetchWeatherData();
+
   return (
     <div
       className='
@@ -15,7 +21,8 @@ const Home = () => {
       <InputBox />
       <TimeLocation />
       <TempDetails />
-      <ForeCast />
+      <ForeCast title={'Hourly Forecast'} />
+      <ForeCast title={'Daily Forecast'} />
     </div>
   );
 };

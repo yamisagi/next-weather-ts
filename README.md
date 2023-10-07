@@ -56,7 +56,7 @@
 
 <!-- add asset here later -->
 
-In this project, I built a Weather App using React, TypeScript, and Tailwind CSS with Open. 
+In this project, I built a Weather App using React, TypeScript, and Tailwind CSS with Open.
 
 <!-- ROADMAP -->
 
@@ -67,6 +67,9 @@ In this project, I built a Weather App using React, TypeScript, and Tailwind CSS
 - [x] Create Input Component & Recent Button Component
 - [x] Create Time Component
 - [x] Create Temperature Component
+- [x] Implement API Call to Open Weather API
+- [x] Implement Types for API Response
+
 
 <p align="center">(Still working on it...)</p>
 

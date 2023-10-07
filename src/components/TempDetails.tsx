@@ -9,7 +9,7 @@ import { WiHumidity } from 'react-icons/wi';
 const TempDetails = () => {
   return (
     <div>
-      <div className=' flex items-center justify-center text-xl text-cyan-300'>
+      <div className='flex items-center justify-center text-xl text-cyan-300'>
         <p>Sunny</p>
       </div>
       <div className='flex flex-col md:flex-row justify-evenly items-center text-white font-light gap-y-2'>
@@ -35,7 +35,7 @@ const TempDetails = () => {
           </div>
         </div>
       </div>
-      <div className='grid grid-cols-2 grid-rows-2 place-items-start md:place-items-center text-white font-light gap-2 mt-5'>
+      <div className='grid grid-cols-2 grid-rows-2 md:place-items-center text-white font-light gap-3 mt-5 border-t-2  border-b-2 border-cyan-400 py-3  mb-2 border-opacity-50'>
         <div className='flex flex-row justify-center items-center gap-2'>
           <FiSunrise className='text-sm' />
           Sunrise <span className='font-bold'>6:00 AM</span>
