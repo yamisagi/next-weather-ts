@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaSearchLocation } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
-
+import { toast } from 'react-toastify';
 const InputBox = ({
   setSearchQuery,
   setUnit,
@@ -13,7 +13,18 @@ const InputBox = ({
 }) => {
   const [input, setInput] = useState('');
   const handleSearch = () => {
-    if (!input) return;
+    if (input.trim() === '') {
+      const message = 'Please enter a location';
+      toast.error(message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+
     setSearchQuery({ q: input });
     setInput('');
   };

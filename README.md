@@ -73,7 +73,9 @@ In this project, I built a Weather App using React, TypeScript, and Tailwind CSS
 - [x] Implement Location Button Functionality to get user's current location
 - [x] Implement Metric Button Functionality to change temperature unit
 - [x] Improve Styling & Responsiveness
-- [ ] Improve Recent Button Functionality
+- [x] Improve Recent Button Functionality
+- [x] Project Done 🎉
+- [ ] Deploy to Vercel  
 
 
 <p align="center">(Still working on it...)</p>

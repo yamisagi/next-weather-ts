@@ -95,10 +95,13 @@ export const getFormattedData = async (searchQueries: SearchQueries) => {
 };
 
 export const formatTime = (
-  time: number|undefined,
-  timezone: string|undefined,
+  time: number | undefined,
+  timezone: string | undefined,
   format = 'cccc, dd LLL yyyy'
-) => DateTime.fromSeconds(time ?? 0).setZone(timezone).toFormat(format);
+) =>
+  DateTime.fromSeconds(time ?? 0)
+    .setZone(timezone)
+    .toFormat(format);
 
 export const formatHour = (
   time: number | undefined,

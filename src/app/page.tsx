@@ -8,21 +8,28 @@ import React, { useState, useEffect } from 'react';
 import { getFormattedData } from '@/utils/api';
 import { changeBackground } from '@/utils/dynamicbg';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { ToastContainer, toast } from 'react-toastify';
+import { saveToLocal } from '@/utils/saveRecentData';
 
 const Home = () => {
+  const searchHistory = JSON.parse(
+    localStorage.getItem('searchHistory') || '[]'
+  );
   const [weatherData, setWeatherData] = useState<WeatherDataParams>();
   const [units, setUnit] = useState('metric');
   const [searchQuery, setSearchQuery] = useState<SearchQueries>({
-    q: 'kayseri',
+    q: searchHistory[0].toLowerCase() ?? 'London',
   });
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
+    saveToLocal(searchQuery);
     const fetchWeatherData = async () => {
+      setNotFound(false);
       const data = await getFormattedData({ ...searchQuery, units });
       setWeatherData(data);
     };
-    // fetchWeatherData();
+    fetchWeatherData();
     const timer = setTimeout(() => {
       if (!weatherData) {
         setNotFound(true);
@@ -64,15 +71,19 @@ const Home = () => {
       )}
       {notFound && (
         <div className='flex justify-center text-center items-center text-white font-light py-2 mt-5'>
-          <p className='text-3xl font-semibold'>
-            Sorry, we couldn&apos;t find any results for{' '}
-            <span className='text-3xl font-semibold bg-gradient-to-b from-blue-200 to-purple-300 bg-clip-text text-transparent'>
-              {searchQuery.q
-                ?.split(' ')
-                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ')}
-            </span>
-          </p>
+          {searchQuery.q === '' ? (
+            <p className='text-2xl font-semibold'>Please enter a location</p>
+          ) : (
+            <p className='text-3xl font-semibold'>
+              Sorry, we couldn&apos;t find any results for{' '}
+              <span className='text-3xl font-semibold bg-gradient-to-b from-blue-200 to-purple-300 bg-clip-text text-transparent'>
+                {searchQuery.q
+                  ?.split(' ')
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')}
+              </span>
+            </p>
+          )}
         </div>
       )}
       {!weatherData && !notFound && (
@@ -80,6 +91,17 @@ const Home = () => {
           <ClipLoader color={'#ffffff'} loading={true} size={150} />
         </div>
       )}
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss={true}
+        draggable={true}
+        pauseOnHover={true}
+      />
     </div>
   );
 };
