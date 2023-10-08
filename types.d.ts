@@ -75,8 +75,11 @@ interface OneCallWeatherData {
 }
 
 interface Hourly {
+  title?: string;
+  icon?: string;
   dt: number;
   temp: number;
+  temperature: number;
   feels_like: number;
   pressure: number;
   humidity: number;
@@ -92,6 +95,8 @@ interface Hourly {
 }
 
 interface Daily {
+  title?: string;
+  icon?: string;
   dt?: number;
   sunrise?: number;
   sunset?: number;
@@ -128,4 +133,26 @@ interface FeelsLike {
   night: number;
   eve: number;
   morn: number;
+}
+
+interface WeatherDataParams {
+  hourly?: Hourly[];
+  daily?: Daily[];
+  timezone?: string;
+  city?: string;
+  country?: string;
+  date?: number;
+  humidity?: number;
+  icon?: string;
+  temperature?: number;
+  description?: string;
+  wind?: number;
+  sunrise?: number;
+  sunset?: number;
+  timezone?: number;
+  temp_max?: number;
+  temp_min?: number;
+  lat?: string;
+  lon?: string;
+  feels_like?: number;
 }

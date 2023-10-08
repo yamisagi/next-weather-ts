@@ -63,12 +63,11 @@ const transformForecastData = (data: OneCallWeatherData) => {
       ...day,
     } as Daily;
   });
-  hourly = hourly.slice(1, 6).map((hour) => {
+  hourly = hourly.slice(1, 7).map((hour) => {
     return {
-      title: formatTime(hour.dt ?? 0, timezone, 'hh:mm a'),
-      temperature: hour.temp ?? 0,
+      title: formatTime(hour.dt ?? 0, timezone, 'HH:mm'),
+      temp: hour.temp ?? 0,
       icon: hour.weather?.[0]?.icon ?? '',
-      ...hour,
     } as Hourly;
   });
 
@@ -89,7 +88,6 @@ export const getFormattedData = async (searchQueries: SearchQueries) => {
       units: searchQueries.units,
     });
     const forecastData = transformForecastData(formattedForecastData);
-    console.log(forecastData);
     return { ...manipuledData, ...forecastData };
   } catch (error) {
     console.log(error);
@@ -97,7 +95,15 @@ export const getFormattedData = async (searchQueries: SearchQueries) => {
 };
 
 export const formatTime = (
-  time: number,
-  timezone: string,
-  format = 'cccc, dd LLL yyyy | Local time: "hh:mm a"'
-) => DateTime.fromSeconds(time).setZone(timezone).toFormat(format);
+  time: number|undefined,
+  timezone: string|undefined,
+  format = 'cccc, dd LLL yyyy'
+) => DateTime.fromSeconds(time ?? 0).setZone(timezone).toFormat(format);
+
+export const formatHour = (
+  time: number | undefined,
+  timezone: string | undefined
+) =>
+  DateTime.fromSeconds(time ?? 0)
+    .setZone(timezone)
+    .toFormat('HH:mm' as any);

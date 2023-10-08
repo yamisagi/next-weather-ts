@@ -1,6 +1,12 @@
 import React from 'react';
+import { getFormattedData } from '@/utils/api';
+import { changeBackground } from '@/utils/dynamicbg';
 
-const RecentButtons = () => {
+const RecentButtons = ({
+  setSearchQuery,
+}: {
+  setSearchQuery: React.Dispatch<React.SetStateAction<SearchQueries>>;
+}) => {
   // For now, we'll just hardcode the buttons
   // Later, we'll use a database to store the buttons
   const recentButtons = [
@@ -25,18 +31,18 @@ const RecentButtons = () => {
       name: 'Sydney',
     },
   ];
+
   return (
     <div className='flex items-center justify-center flex-wrap gap-2'>
       {recentButtons.map((button) => (
         <button
           key={button.id}
-          className=' 
-            bg-gradient-to-br from-cyan-700 to-blue-800
-            text-white font-medium py-2 px-4 rounded-xl shadow-md
-            hover:from-cyan-700 hover:to-blue-300 hover:shadow-xl
-            focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50
-
-            '
+          className={`backdrop-filter backdrop-blur-3xl bg-opacity-50
+          text-white font-medium py-2 px-4 rounded-xl shadow-xl
+          hover:scale-110  hover:shadow-2xl transition-all duration-300 ease-in-out`}
+          onClick={() => {
+            setSearchQuery({ q: button.name });
+          }}
         >
           {button.name}
         </button>

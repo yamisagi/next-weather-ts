@@ -69,6 +69,11 @@ In this project, I built a Weather App using React, TypeScript, and Tailwind CSS
 - [x] Create Temperature Component
 - [x] Implement API Call to Open Weather API
 - [x] Implement Types for API Response
+- [x] Implement Search Functionality 
+- [x] Implement Location Button Functionality to get user's current location
+- [x] Implement Metric Button Functionality to change temperature unit
+- [x] Improve Styling & Responsiveness
+- [ ] Improve Recent Button Functionality
 
 
 <p align="center">(Still working on it...)</p>
