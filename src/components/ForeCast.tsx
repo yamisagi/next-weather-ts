@@ -2,21 +2,21 @@ import React from 'react';
 import HourlyForeCastItem from './HourlyForeCastItem';
 import DailyForeCastItem from './DailyForeCastItem';
 import { changeBackground } from '@/utils/dynamicbg';
+import { formatHour } from '@/utils/api';
 
 const ForeCast = ({
   title,
   dailyData,
   hourlyData,
-  weatherData,
+  weatherData: { date, timezone },
 }: {
   title: string;
   dailyData?: Daily[];
   hourlyData?: Hourly[];
   weatherData: WeatherDataParams;
 }) => {
-  const background = changeBackground(weatherData);
-  const textGradient =
-    typeof background === 'object' ? background.textGradient : '';
+  const { textGradient } = changeBackground(formatHour(date!, timezone!));
+
   return (
     <div>
       <div className='flex flex-col justify-center items-center text-white font-light py-2 mt-5'>

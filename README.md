@@ -56,7 +56,7 @@
 
 <!-- add asset here later -->
 
-In this project, I built a Weather App using React, TypeScript, and Tailwind CSS with Open.
+In this project, I built a Weather App using React, TypeScript, and Tailwind CSS with Open Weather API.
 
 <!-- ROADMAP -->
 
@@ -75,7 +75,7 @@ In this project, I built a Weather App using React, TypeScript, and Tailwind CSS
 - [x] Improve Styling & Responsiveness
 - [x] Improve Recent Button Functionality
 - [x] Project Done 🎉
-- [ ] Deploy to Vercel  
+- [x] Deploy to Vercel  
 
 
 <p align="center">(Still working on it...)</p>

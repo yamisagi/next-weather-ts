@@ -27,17 +27,17 @@ const TempDetails = ({ ...weatherData }: WeatherDataParams) => {
       </div>
       <div className='flex flex-col md:flex-row justify-evenly items-center text-white font-light gap-y-2'>
         <Image
-          src={getWeatherIcon(icon)}
+          src={getWeatherIcon(icon!)}
           width={100}
           height={100}
           alt={'Weather icon'}
         />
-        <p className='text-5xl'>{temperature.toFixed()}°</p>
+        <p className='text-5xl'>{temperature?.toFixed()}°</p>
         <div className='flex flex-col justify-center items-start mt-2 gap-2 text-white font-light'>
           <div className='flex flex-row justify-center items-center gap-2'>
             <FaTemperatureHigh className='text-sm' />
             Feels like{' '}
-            <span className='font-bold'>{feels_like.toFixed()}°</span>
+            <span className='font-bold'>{feels_like?.toFixed()}°</span>
           </div>
           <div className='flex flex-row justify-center items-center gap-2'>
             <BsWind className='text-sm' />
@@ -53,20 +53,20 @@ const TempDetails = ({ ...weatherData }: WeatherDataParams) => {
         <div className='flex flex-row justify-center items-center gap-2'>
           <FiSunrise className='text-sm' />
           Sunrise{' '}
-          <span className='font-bold'>{formatHour(sunrise, timezone)}</span>
+          <span className='font-bold'>{formatHour(sunrise!, timezone!)}</span>
         </div>
         <div className='flex flex-row justify-center items-center gap-2'>
           <FiSunset className='text-sm' />
           Sunset{' '}
-          <span className='font-bold'>{formatHour(sunset, timezone)}</span>
+          <span className='font-bold'>{formatHour(sunset!, timezone!)}</span>
         </div>
         <div className='flex flex-row justify-center items-center gap-2'>
           <AiOutlineArrowUp className='text-sm' />
-          Max <span className='font-bold'>{temp_max.toFixed()}°</span>
+          Max <span className='font-bold'>{temp_max?.toFixed()}°</span>
         </div>
         <div className='flex flex-row justify-center items-center gap-2'>
           <AiOutlineArrowDown className='text-sm' />
-          Min <span className='font-bold'>{temp_min.toFixed()}°</span>
+          Min <span className='font-bold'>{temp_min?.toFixed()}°</span>
         </div>
       </div>
     </div>

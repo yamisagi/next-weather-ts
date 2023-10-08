@@ -2,8 +2,12 @@ import { toast } from 'react-toastify';
 const capitalize = (str: string | undefined) => {
   return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';
 };
-const searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+
 export const saveToLocal = (searchQuery: SearchQueries) => {
+  if (typeof window !== 'undefined') {  
+  const searchHistory = JSON.parse(
+    localStorage.getItem('searchHistory') || '[]'
+  );
   if (searchQuery?.q?.trim() === '') {
     const message = 'It seems like you are trying to save an empty location';
     toast.error(message, {
@@ -38,4 +42,5 @@ export const saveToLocal = (searchQuery: SearchQueries) => {
       progress: undefined,
     });
   }
+}
 };

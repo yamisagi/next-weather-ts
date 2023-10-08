@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-const BASE_URL = 'https://api.openweathermap.org/data/2.5'; // This is the base url for the API
+const BASE_URL = 'https://api.openweathermap.org/data'; // This is the base url for the API
 
 // https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 
@@ -76,18 +76,19 @@ const transformForecastData = (data: OneCallWeatherData) => {
 
 export const getFormattedData = async (searchQueries: SearchQueries) => {
   try {
-    const formattedData = await getWeatherData('weather', searchQueries);
+    const formattedData = await getWeatherData('2.5/weather', searchQueries);
     const manipuledData = transformData(formattedData);
     const { lat, lon } = manipuledData;
     // We will use lat and lon to get the hourly and daily forecast onecall API.
     console.log(manipuledData);
-    const formattedForecastData = await getWeatherData('onecall', {
+    const formattedForecastData = await getWeatherData('3.0/onecall', {
       lat,
       lon,
       exclude: 'current,minutely,alerts',
       units: searchQueries.units,
     });
     const forecastData = transformForecastData(formattedForecastData);
+    console.log(forecastData);
     return { ...manipuledData, ...forecastData };
   } catch (error) {
     console.log(error);
@@ -95,18 +96,21 @@ export const getFormattedData = async (searchQueries: SearchQueries) => {
 };
 
 export const formatTime = (
-  time: number | undefined,
-  timezone: string | undefined,
+  time: number,
+  timezone: string,
   format = 'cccc, dd LLL yyyy'
-) =>
-  DateTime.fromSeconds(time ?? 0)
+) => {
+  return DateTime.fromSeconds(time ?? 0)
     .setZone(timezone)
     .toFormat(format);
+};
 
-export const formatHour = (
-  time: number | undefined,
-  timezone: string | undefined
-) =>
-  DateTime.fromSeconds(time ?? 0)
-    .setZone(timezone)
-    .toFormat('HH:mm' as any);
+export const formatHour = (time: number, timezone: string) => {
+  console.log(time, timezone);
+  return (
+    DateTime.fromSeconds(time ?? 1696802521)
+      .setZone(timezone)
+      // set to 12 hour format
+      .toFormat('HH:mm a')
+  );
+};

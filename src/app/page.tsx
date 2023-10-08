@@ -5,20 +5,20 @@ import RecentButtons from '@/components/RecentButtons';
 import TempDetails from '@/components/TempDetails';
 import TimeLocation from '@/components/TimeLocation';
 import React, { useState, useEffect } from 'react';
-import { getFormattedData } from '@/utils/api';
+import { getFormattedData, formatHour } from '@/utils/api';
 import { changeBackground } from '@/utils/dynamicbg';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { ToastContainer, toast } from 'react-toastify';
 import { saveToLocal } from '@/utils/saveRecentData';
 
 const Home = () => {
-  const searchHistory = JSON.parse(
-    localStorage.getItem('searchHistory') || '[]'
-  );
-  const [weatherData, setWeatherData] = useState<WeatherDataParams>();
+  const [weatherData, setWeatherData] = useState<WeatherDataParams>({});
   const [units, setUnit] = useState('metric');
   const [searchQuery, setSearchQuery] = useState<SearchQueries>({
-    q: searchHistory[0].toLowerCase() ?? 'London',
+    q:
+      {
+        ...JSON.parse(localStorage.getItem('searchHistory') || '[]'),
+      }[0] || 'Istanbul',
   });
   const [notFound, setNotFound] = useState(false);
 
@@ -27,21 +27,24 @@ const Home = () => {
     const fetchWeatherData = async () => {
       setNotFound(false);
       const data = await getFormattedData({ ...searchQuery, units });
-      setWeatherData(data);
+      setWeatherData(data!);
     };
     fetchWeatherData();
+    console.log('Weather Data', weatherData);
     const timer = setTimeout(() => {
       if (!weatherData) {
         setNotFound(true);
       }
     }, 5000);
     return () => clearTimeout(timer);
-  }, [searchQuery, units, weatherData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery, units]);
 
-  const background = changeBackground(weatherData);
-  const gradient =
-    typeof background === 'object' ? background.gradient : background;
+  const { gradient } = changeBackground(
+    formatHour(weatherData?.date!, weatherData?.timezone!)
+  );
 
+  console.log(gradient);
   return (
     <div
       className={`mx-auto max-w-screen-lg mt-4 py-5 px-16 bg-gradient-to-bl ${gradient} h-fit shadow-xl rounded-lg shadow-gray-500`}

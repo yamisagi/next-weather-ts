@@ -1,56 +1,59 @@
 import { formatHour } from './api';
 
-export const changeBackground = (
-  weatherData: WeatherDataParams | undefined
-) => {
-  if (!weatherData) return 'from-cyan-700 to-blue-700';
-  const { date, timezone } = weatherData;
-  const hour = formatHour(date, timezone);
-
-  if (hour.includes('00:') || hour.includes('01:') || hour.includes('02:'))
+interface Gradient {
+  gradient: string;
+  textGradient: string;
+}
+export const changeBackground = (hour: string): Gradient => {
+  const hourRegex = /(\d{2}):(\d{2})/;
+  const hourToNumber = hour.match(hourRegex);
+  if (!hour || !hourToNumber || hourToNumber.length < 3 || Number(hourToNumber[1]) < 0 || Number(hourToNumber[1]) > 23) {
     return {
       gradient: 'from-blue-900 to-gray-900',
-      textGradient: 'from-blue-700 to-blue-500',
+      textGradient: 'from-blue-500 to-blue-300',
     };
-  if (hour.includes('03:') || hour.includes('04:') || hour.includes('05:'))
-    return {
+  }
+
+  const hourOfDay = Math.floor(Number(hourToNumber[1]));
+
+  console.log(hourOfDay);
+
+  const gradients = [
+    {
+      gradient: 'from-blue-900 to-gray-900',
+      textGradient: 'from-blue-500 to-blue-300',
+    }, // 00:00 - 02:59
+    {
       gradient: 'from-red-700 to-yellow-700',
       textGradient: 'from-red-400 to-yellow-400',
-    };
-  if (hour.includes('06:') || hour.includes('07:') || hour.includes('08:'))
-    return {
+    }, // 03:00 - 05:59
+    {
       gradient: 'from-yellow-700 to-green-700',
       textGradient: 'from-yellow-400 to-green-400',
-    };
-  if (hour.includes('09:') || hour.includes('10:') || hour.includes('11:'))
-    return {
+    }, // 06:00 - 08:59
+    {
       gradient: 'from-green-700 to-blue-700',
-      textGradient: 'from-yellow-400 to-orange-200',
-    };
-  if (hour.includes('12:') || hour.includes('13:') || hour.includes('14:'))
-    return {
+      textGradient: 'from-orange-200 to-yellow-400',
+    }, // 09:00 - 11:59
+    {
       gradient: 'from-blue-700 to-purple-700',
       textGradient: 'from-blue-400 to-purple-400',
-    };
-
-  if (hour.includes('15:') || hour.includes('16:') || hour.includes('17:'))
-    return {
+    }, // 12:00 - 14:59
+    {
       gradient: 'from-purple-700 to-pink-700',
       textGradient: 'from-purple-400 to-pink-400',
-    };
-  if (hour.includes('18:') || hour.includes('19:') || hour.includes('20:'))
-    return {
+    }, // 15:00 - 17:59
+    {
       gradient: 'from-blue-700 to-purple-700',
-      textGradient: 'from-blue-300 to-purple-300',
-    };
-  if (hour.includes('21:') || hour.includes('22:') || hour.includes('23:'))
-    return {
+      textGradient: 'from-purple-300 to-blue-300',
+    }, // 18:00 - 20:59
+    {
       gradient: 'from-purple-700 to-pink-700',
       textGradient: 'from-purple-400 to-pink-400',
-    };
+    }, // 21:00 - 23:59
+  ];
 
-  return {
-    gradient: 'from-yellow-700 to-orange-700',
-    textGradient: 'from-yellow-400 to-orange-400',
-  };
+  console.log(gradients[Math.floor(hourOfDay / 3)]);
+
+  return gradients[Math.floor(hourOfDay / 3)];
 };
