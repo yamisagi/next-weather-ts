@@ -56,6 +56,10 @@
 
 <!-- add asset here later -->
 
+
+https://github.com/yamisagi/next-weather-ts/assets/84624853/de78fcf6-f7b1-4316-9830-fa88cb1d1345
+
+
 In this project, I built a Weather App using React, TypeScript, and Tailwind CSS with Open Weather API.
 
 <!-- ROADMAP -->
