@@ -1,11 +1,18 @@
 import React from 'react';
 import { BiTimeFive } from 'react-icons/bi';
 import { formatTime, formatHour } from '@/utils/api';
+import { motion } from 'framer-motion';
+import { fadeIn } from '@/constants/variants';
 
 const TimeLocation = ({ ...weatherData }: WeatherDataParams) => {
   const { city, country, date, timezone } = weatherData;
   return (
-    <div>
+    <motion.div
+      variants={fadeIn('left', 0.3)}
+      initial='hidden'
+      animate='show'
+      exit='hidden'
+    >
       <div className='flex items-center justify-center my-8'>
         <div className='text-white text-xl font-light '>
           <p>{formatTime(date!, timezone!)}</p>
@@ -26,7 +33,7 @@ const TimeLocation = ({ ...weatherData }: WeatherDataParams) => {
           </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

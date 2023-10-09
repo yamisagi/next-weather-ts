@@ -9,6 +9,8 @@ import { getFormattedData, formatHour } from '@/utils/api';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { ToastContainer, toast } from 'react-toastify';
 import { saveToLocal } from '@/utils/saveRecentData';
+import { motion } from 'framer-motion';
+import { fadeIn } from '@/constants/variants';
 
 const Home = () => {
   let searchHistory = [];
@@ -64,7 +66,11 @@ const Home = () => {
   };
 
   return (
-    <div
+    <motion.div
+      variants={fadeIn('up', 0.2)}
+      initial='hidden'
+      animate='show'
+      exit='hidden'
       className={`mx-auto max-w-screen-lg mt-4 py-5 px-16 bg-gradient-to-bl ${changeBackground(
         formatHour(weatherData?.date!, weatherData?.timezone!)
       )} h-fit shadow-xl rounded-lg shadow-gray-500`}
@@ -125,7 +131,7 @@ const Home = () => {
         draggable={true}
         pauseOnHover={true}
       />
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,5 +1,7 @@
 import { useEffect,useRef } from "react";
 import React from 'react';
+import { motion } from 'framer-motion';
+import { fadeIn } from '@/constants/variants';
 
 const RecentButtons = ({
   setSearchQuery,
@@ -13,7 +15,6 @@ const RecentButtons = ({
       searchHistoryRef.current = JSON.parse(localStorage.getItem('searchHistory') || '[]');
     }
   }, []);
-  console.log(searchHistoryRef.current);
   const recentButtons = [
     {
       id: 1,
@@ -38,7 +39,12 @@ const RecentButtons = ({
   ];
 
   return (
-    <div className='flex items-center justify-center flex-wrap gap-2 '>
+    <motion.div 
+    variants={fadeIn('down', 0.2)}
+    initial='hidden'
+    animate='show'
+    exit='hidden'
+    className='flex items-center justify-center flex-wrap gap-2 '>
       {recentButtons.map((button) => (
         <button
           key={button.id}
@@ -53,7 +59,7 @@ const RecentButtons = ({
           {button.name}
         </button>
       ))}
-    </div>
+    </motion.div>
   );
 };
 

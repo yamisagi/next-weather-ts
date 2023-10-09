@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import HourlyForeCastItem from './HourlyForeCastItem';
 import DailyForeCastItem from './DailyForeCastItem';
-import { formatHour } from '@/utils/api';
+import { motion } from 'framer-motion';
+import { fadeIn } from '@/constants/variants';
 
 const ForeCast = ({
   title,
@@ -15,7 +16,12 @@ const ForeCast = ({
   weatherData: WeatherDataParams;
 }) => {
   return (
-    <div>
+    <motion.div
+      variants={fadeIn('up', 0.4)}
+      initial='hidden'
+      animate='show'
+      exit='hidden'
+    >
       <div className='flex flex-col justify-center items-center text-white font-light py-2 mt-5'>
         <p
           className={`text-3xl font-semibold text-white/50 bg-clip-text border-b-2 border-white/50 pb-2`}
@@ -35,7 +41,7 @@ const ForeCast = ({
             <DailyForeCastItem key={index} weatherData={daily} />
           ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
