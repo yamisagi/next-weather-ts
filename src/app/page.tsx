@@ -33,18 +33,19 @@ const Home = () => {
 
   useEffect(() => {
     saveToLocal(searchQuery);
+    let timer: NodeJS.Timeout;
     const fetchWeatherData = async () => {
-      setNotFound(false);
       const data = await getFormattedData({ ...searchQuery, units });
       setWeatherData(data!);
+      console.log(data);
+      setNotFound(false);
+       timer = setTimeout(() => {
+        if (!data) {
+          setNotFound(true);
+        }
+      }, 5000);
     };
-    fetchWeatherData();
-    console.log('Weather Data', weatherData);
-    const timer = setTimeout(() => {
-      if (!weatherData) {
-        setNotFound(true);
-      }
-    }, 5000);
+    fetchWeatherData(); 
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, units]);
@@ -82,9 +83,7 @@ const Home = () => {
         formatHour(weatherData?.date!, weatherData?.timezone!)
       )} h-fit shadow-xl rounded-lg shadow-gray-500`}
     >
-      <RecentButtons
-        setSearchQuery={setSearchQuery}
-      />
+      <RecentButtons setSearchQuery={setSearchQuery} />
       <InputBox
         setSearchQuery={setSearchQuery}
         setUnit={setUnit}

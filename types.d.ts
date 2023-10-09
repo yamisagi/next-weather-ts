@@ -136,23 +136,23 @@ interface FeelsLike {
 }
 
 interface WeatherDataParams {
-  hourly?: Hourly[];
-  daily?: Daily[];
-  timezone?: string;
-  city?: string;
-  country?: string;
-  date?: number;
-  humidity?: number;
-  icon?: string;
-  temperature?: number;
-  description?: string;
-  wind?: number;
-  sunrise?: number;
-  sunset?: number;
-  timezone?: number;
-  temp_max?: number;
-  temp_min?: number;
-  lat?: string;
-  lon?: string;
-  feels_like?: number;
+  hourly: Hourly[];
+  daily: Daily[];
+  timezone: string;
+  city: string;
+  country: string;
+  date: number;
+  humidity: number;
+  icon: string;
+  temperature: number;
+  description: string;
+  wind: number;
+  sunrise: number;
+  sunset: number;
+  timezone: number;
+  temp_max: number;
+  temp_min: number;
+  lat: string;
+  lon: string;
+  feels_like: number;
 }
