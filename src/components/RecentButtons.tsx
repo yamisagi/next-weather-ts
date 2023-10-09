@@ -1,50 +1,46 @@
-import { useEffect,useRef } from "react";
 import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '@/constants/variants';
+import { getFromLocal } from '@/utils/saveRecentData';
 
 const RecentButtons = ({
   setSearchQuery,
 }: {
   setSearchQuery: React.Dispatch<React.SetStateAction<SearchQueries>>;
 }) => {
+  const searchHistory = getFromLocal();
 
-  const searchHistoryRef = useRef<string[]>([]);
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      searchHistoryRef.current = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-    }
-  }, []);
   const recentButtons = [
     {
       id: 1,
-      name: searchHistoryRef.current[0] ?? 'London',
+      name: searchHistory[0] ?? 'London',
     },
     {
       id: 2,
-      name: searchHistoryRef.current[1] ?? 'Paris',
+      name: searchHistory[1] ?? 'Paris',
     },
     {
       id: 3,
-      name: searchHistoryRef.current[2] ?? 'New York',
+      name: searchHistory[2] ?? 'New York',
     },
     {
       id: 4,
-      name: searchHistoryRef.current[3] ?? 'Tokyo',
+      name: searchHistory[3] ?? 'Tokyo',
     },
     {
       id: 5,
-      name: searchHistoryRef.current[4] ?? 'Moscow',
+      name: searchHistory[4] ?? 'Moscow',
     },
   ];
 
   return (
-    <motion.div 
-    variants={fadeIn('down', 0.2)}
-    initial='hidden'
-    animate='show'
-    exit='hidden'
-    className='flex items-center justify-center flex-wrap gap-2 '>
+    <motion.div
+      variants={fadeIn('down', 0.2)}
+      initial='hidden'
+      animate='show'
+      exit='hidden'
+      className='flex items-center justify-center flex-wrap gap-2 '
+    >
       {recentButtons.map((button) => (
         <button
           key={button.id}

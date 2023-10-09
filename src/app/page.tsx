@@ -1,7 +1,7 @@
 'use client';
 import ForeCast from '@/components/ForeCast';
 import InputBox from '@/components/InputBox';
-import RecentButtons from '@/components/RecentButtons';
+
 import TempDetails from '@/components/TempDetails';
 import TimeLocation from '@/components/TimeLocation';
 import React, { useState, useEffect, useRef } from 'react';
@@ -11,6 +11,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import { saveToLocal } from '@/utils/saveRecentData';
 import { motion } from 'framer-motion';
 import { fadeIn } from '@/constants/variants';
+
+import dynamic from 'next/dynamic';
+
+// Server Component:
+const RecentButtons = dynamic(() => import('@/components/RecentButtons'), {
+  ssr: false,
+});
 
 const Home = () => {
   let searchHistory = [];
@@ -75,7 +82,9 @@ const Home = () => {
         formatHour(weatherData?.date!, weatherData?.timezone!)
       )} h-fit shadow-xl rounded-lg shadow-gray-500`}
     >
-      <RecentButtons setSearchQuery={setSearchQuery} />
+      <RecentButtons
+        setSearchQuery={setSearchQuery}
+      />
       <InputBox
         setSearchQuery={setSearchQuery}
         setUnit={setUnit}
