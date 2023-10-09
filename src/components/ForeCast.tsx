@@ -24,13 +24,13 @@ const ForeCast = ({
     >
       <div className='flex flex-col justify-center items-center text-white font-light py-2 mt-5'>
         <p
-          className={`text-3xl font-semibold text-white/50 bg-clip-text border-b-2 border-white/50 pb-2`}
+          className={`text-3xl text-center font-semibold text-white/50 bg-clip-text border-b-2 border-white/50 pb-2`}
         >
           {title}
         </p>
       </div>
       <div
-        className={`flex flex-row flex-wrap justify-center align-center text-white font-light gap-3 mt-5`}
+        className={`flex flex-row flex-wrap justify-center align-center text-white font-light md:gap-5 sm:gap-1 mt-5`}
       >
         {title === 'Hourly Forecast' &&
           hourlyData?.map((hourly, index) => (

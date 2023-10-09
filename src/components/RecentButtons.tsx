@@ -35,7 +35,7 @@ const RecentButtons = ({
 
   return (
     <motion.div
-      variants={fadeIn('down', 0.2)}
+      variants={fadeIn('up', 0.3)}
       initial='hidden'
       animate='show'
       exit='hidden'

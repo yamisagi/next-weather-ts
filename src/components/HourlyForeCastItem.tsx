@@ -11,7 +11,7 @@ const HourlyForeCastItem = ({ weatherData }: { weatherData: Hourly }) => {
     initial='hidden'
     animate='show'
     exit='hidden'
-    className='flex flex-col justify-center items-center min-w-[120px] max-w-[250px] h-[fit-content] text-white font-light gap-y-1 mt-5 border-2 border-white/50 p-5 border-opacity-50 rounded-lg'>
+    className='flex flex-col justify-center items-center min-w-[120px] max-w-[120px] h-[fit-content] text-white font-light m-1 mt-2 border-2 border-white/50 p-5 border-opacity-50 rounded-lg'>
       <p>
         <span className='font-extralight'>{weatherData.title}</span>
       </p>

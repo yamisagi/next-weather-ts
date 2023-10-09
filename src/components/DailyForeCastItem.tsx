@@ -12,9 +12,9 @@ const DailyForeCastItem = ({ weatherData }: { weatherData: Daily }) => {
     animate='show'
     exit='hidden'
     className='flex flex-col flex-wrap justify-center 
-    min-w-[150px] max-w-[250px] h-[fit-content]
-    items-center text-white font-light gap-y-1 mt-5 
-    border-2 border-white/50 p-3 border-opacity-50 rounded-lg'>
+    min-w-[120px] max-w-[120px] h-[fit-content]
+    items-center text-white font-light m-1 mt-2 
+    border-2 border-white/50 p-2 border-opacity-50 rounded-lg'>
       <p>
         <span className='font-extralight'>{weatherData.title}</span>
       </p>

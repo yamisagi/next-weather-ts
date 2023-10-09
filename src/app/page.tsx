@@ -79,7 +79,7 @@ const Home = () => {
       initial='hidden'
       animate='show'
       exit='hidden'
-      className={`mx-auto max-w-screen-lg mt-4 py-5 px-16 bg-gradient-to-bl ${changeBackground(
+      className={`mx-auto max-w-screen-lg mt-4 py-5 px-8 bg-gradient-to-bl ${changeBackground(
         formatHour(weatherData?.date!, weatherData?.timezone!)
       )} h-fit shadow-xl rounded-lg shadow-gray-500`}
     >
