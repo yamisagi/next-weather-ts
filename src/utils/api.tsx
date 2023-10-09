@@ -111,6 +111,6 @@ export const formatHour = (time: number, timezone: string) => {
     DateTime.fromSeconds(time ?? 1696802521)
       .setZone(timezone)
       // set to 12 hour format
-      .toFormat('HH:mm a')
+      .toFormat('HH:mm')
   );
 };

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import HourlyForeCastItem from './HourlyForeCastItem';
 import DailyForeCastItem from './DailyForeCastItem';
-import { changeBackground } from '@/utils/dynamicbg';
 import { formatHour } from '@/utils/api';
 
 const ForeCast = ({
@@ -15,13 +14,11 @@ const ForeCast = ({
   hourlyData?: Hourly[];
   weatherData: WeatherDataParams;
 }) => {
-  const { textGradient } = changeBackground(formatHour(date!, timezone!));
-
   return (
     <div>
       <div className='flex flex-col justify-center items-center text-white font-light py-2 mt-5'>
         <p
-          className={`text-3xl font-semibold bg-gradient-to-b ${textGradient} bg-clip-text text-transparent border-b-2 border-white/50 pb-2`}
+          className={`text-3xl font-semibold text-white/50 bg-clip-text border-b-2 border-white/50 pb-2`}
         >
           {title}
         </p>

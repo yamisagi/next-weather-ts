@@ -1,3 +1,4 @@
+import { useEffect,useRef } from "react";
 import React from 'react';
 
 const RecentButtons = ({
@@ -5,32 +6,34 @@ const RecentButtons = ({
 }: {
   setSearchQuery: React.Dispatch<React.SetStateAction<SearchQueries>>;
 }) => {
-  // For now, we'll just hardcode the buttons
-  // Later, we'll use a database to store the buttons
-  const searchHistory = JSON.parse(
-    localStorage.getItem('searchHistory') || '[]'
-  );
-  console.log(searchHistory);
+
+  const searchHistoryRef = useRef<string[]>([]);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      searchHistoryRef.current = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+    }
+  }, []);
+  console.log(searchHistoryRef.current);
   const recentButtons = [
     {
       id: 1,
-      name: searchHistory[0] ?? 'London',
+      name: searchHistoryRef.current[0] ?? 'London',
     },
     {
       id: 2,
-      name: searchHistory[1] ?? 'Paris',
+      name: searchHistoryRef.current[1] ?? 'Paris',
     },
     {
       id: 3,
-      name: searchHistory[2] ?? 'New York',
+      name: searchHistoryRef.current[2] ?? 'New York',
     },
     {
       id: 4,
-      name: searchHistory[3] ?? 'Tokyo',
+      name: searchHistoryRef.current[3] ?? 'Tokyo',
     },
     {
       id: 5,
-      name: searchHistory[4] ?? 'Moscow',
+      name: searchHistoryRef.current[4] ?? 'Moscow',
     },
   ];
 

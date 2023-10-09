@@ -4,21 +4,21 @@ import InputBox from '@/components/InputBox';
 import RecentButtons from '@/components/RecentButtons';
 import TempDetails from '@/components/TempDetails';
 import TimeLocation from '@/components/TimeLocation';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getFormattedData, formatHour } from '@/utils/api';
-import { changeBackground } from '@/utils/dynamicbg';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { ToastContainer, toast } from 'react-toastify';
 import { saveToLocal } from '@/utils/saveRecentData';
 
 const Home = () => {
-  const [weatherData, setWeatherData] = useState<WeatherDataParams>({});
+  let searchHistory = [];
+  if (typeof window !== 'undefined') {
+    searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+  }
+  const [weatherData, setWeatherData] = useState<WeatherDataParams>();
   const [units, setUnit] = useState('metric');
   const [searchQuery, setSearchQuery] = useState<SearchQueries>({
-    q:
-      {
-        ...JSON.parse(localStorage.getItem('searchHistory') || '[]'),
-      }[0] || 'Istanbul',
+    q: searchHistory[0] ?? 'Istanbul',
   });
   const [notFound, setNotFound] = useState(false);
 
@@ -40,14 +40,34 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, units]);
 
-  const { gradient } = changeBackground(
-    formatHour(weatherData?.date!, weatherData?.timezone!)
-  );
+  const changeBackground = (hour: string) => {
+    if (!weatherData) return 'from-blue-500 to-purple-500';
+    const { sunrise, sunset } = weatherData;
+    const sunriseHour = formatHour(sunrise!, weatherData.timezone!);
+    const sunsetHour = formatHour(sunset!, weatherData.timezone!);
+    if (hour >= sunriseHour && hour <= '11:59') {
+      return 'from-blue-500 to-cyan-500';
+    } else if (hour > '21:00' && hour <= '23:59') {
+      return 'from-blue-600 to-gray-700';
+    } else if (hour >= '00:00' && hour < '03:00') {
+      return 'from-blue-800 to-gray-900';
+    } else if (hour >= '03:01' && hour < '06:00') {
+      return 'from-gray-600 to-blue-600';
+    } else if (hour >= '06:01' && hour < '09:00') {
+      return 'from-yellow-700 to-green-700';
+    } else if (hour >= '12:00' && hour < '15:00') {
+      return 'from-blue-500 to-cyan-600';
+    } else if (hour >= '15:00' && sunsetHour) {
+      return 'from-blue-600 to-gray-700';
+    }
+    return 'from-purple-700 to-blue-700';
+  };
 
-  console.log(gradient);
   return (
     <div
-      className={`mx-auto max-w-screen-lg mt-4 py-5 px-16 bg-gradient-to-bl ${gradient} h-fit shadow-xl rounded-lg shadow-gray-500`}
+      className={`mx-auto max-w-screen-lg mt-4 py-5 px-16 bg-gradient-to-bl ${changeBackground(
+        formatHour(weatherData?.date!, weatherData?.timezone!)
+      )} h-fit shadow-xl rounded-lg shadow-gray-500`}
     >
       <RecentButtons setSearchQuery={setSearchQuery} />
       <InputBox
