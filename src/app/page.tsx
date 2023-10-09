@@ -1,55 +1,36 @@
 'use client';
 import ForeCast from '@/components/ForeCast';
 import InputBox from '@/components/InputBox';
-
 import TempDetails from '@/components/TempDetails';
 import TimeLocation from '@/components/TimeLocation';
 import React, { useState, useEffect, useRef } from 'react';
-import { getFormattedData, formatHour } from '@/utils/api';
+import { formatHour } from '@/services/api';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { ToastContainer, toast } from 'react-toastify';
-import { saveToLocal } from '@/utils/saveRecentData';
+import { useWeatherData } from '@/hooks/useWeatherData';
 import { motion } from 'framer-motion';
 import { fadeIn } from '@/constants/variants';
-
 import dynamic from 'next/dynamic';
-
-// Server Component:
 const RecentButtons = dynamic(() => import('@/components/RecentButtons'), {
   ssr: false,
 });
 
 const Home = () => {
-  let searchHistory = [];
-  if (typeof window !== 'undefined') {
-    searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-  }
-  const [weatherData, setWeatherData] = useState<WeatherDataParams>();
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
   const [units, setUnit] = useState('metric');
   const [searchQuery, setSearchQuery] = useState<SearchQueries>({
     q: searchHistory[0] ?? 'Istanbul',
   });
-  const [notFound, setNotFound] = useState(false);
+  const { weatherData, notFound } = useWeatherData(searchQuery, units);
 
   useEffect(() => {
-    saveToLocal(searchQuery);
-    let timer: NodeJS.Timeout;
-    const fetchWeatherData = async () => {
-      const data = await getFormattedData({ ...searchQuery, units });
-      setWeatherData(data!);
-      console.log(data);
-      setNotFound(false);
-       timer = setTimeout(() => {
-        if (!data) {
-          setNotFound(true);
-        }
-      }, 5000);
-    };
-    fetchWeatherData(); 
-    return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, units]);
-
+    if (typeof window !== 'undefined') {
+      const data = localStorage.getItem('searchHistory');
+      if (data) {
+        setSearchHistory(JSON.parse(data));
+      }
+    }
+  }, []);
   const changeBackground = (hour: string) => {
     if (!weatherData) return 'from-blue-500 to-purple-500';
     const { sunrise, sunset } = weatherData;

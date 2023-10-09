@@ -1,6 +1,6 @@
 import React from 'react';
 import { BiTimeFive } from 'react-icons/bi';
-import { formatTime, formatHour } from '@/utils/api';
+import { formatTime, formatHour } from '@/services/api';
 import { motion } from 'framer-motion';
 import { fadeIn } from '@/constants/variants';
 

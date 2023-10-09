@@ -5,7 +5,7 @@ import { FaTemperatureHigh, FaTemperatureLow } from 'react-icons/fa';
 import { BsWind } from 'react-icons/bs';
 import { FiSunrise, FiSunset } from 'react-icons/fi';
 import { WiHumidity } from 'react-icons/wi';
-import { getWeatherIcon, formatHour } from '@/utils/api';
+import { getWeatherIcon, formatHour } from '@/services/api';
 import { motion } from 'framer-motion';
 import { fadeIn } from '@/constants/variants';
 
@@ -25,10 +25,10 @@ const TempDetails = ({ ...weatherData }: WeatherDataParams) => {
   } = weatherData;
   return (
     <motion.div
-    variants={fadeIn('right', 0.4)}
-    initial='hidden'
-    animate='show'
-    exit='hidden'
+      variants={fadeIn('right', 0.4)}
+      initial='hidden'
+      animate='show'
+      exit='hidden'
     >
       <div className='flex items-center justify-center text-xl text-white/50'>
         <p className='capitalize'>{description}</p>
